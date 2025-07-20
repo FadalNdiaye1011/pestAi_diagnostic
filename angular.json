@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "PestAi": {
+    "pestAi_diagnostic": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/pestai",
+            "outputPath": "dist/pestAi_diagnostic",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -66,14 +66,14 @@
           "options": {
               "proxyConfig": "proxy.conf.json"
             },
-          "configurations": {
-            "production": {
-              "buildTarget": "pestai:build:production"
-            },
-            "development": {
-              "buildTarget": "pestai:build:development"
-            }
-          },
+        "configurations": {
+    "production": {
+      "buildTarget": "pestAi_diagnostic:build:production"
+    },
+    "development": {
+      "buildTarget": "pestAi_diagnostic:build:development"
+    }
+  },
           "defaultConfiguration": "development"
         },
         

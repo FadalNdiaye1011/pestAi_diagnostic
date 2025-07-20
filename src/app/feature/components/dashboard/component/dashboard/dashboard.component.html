@@ -1,0 +1,279 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 p-6">
+      <!-- Header avec gradient -->
+      <div class="mb-8">
+        <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/20">
+          <h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+            Tableau de bord
+          </h1>
+          <p class="text-slate-600 dark:text-slate-300 mt-2 text-lg">Vue d'ensemble de votre activité agricole intelligente</p>
+        </div>
+      </div>
+
+      <!-- Loading State avec animation moderne -->
+      <div *ngIf="isLoading" class="flex justify-center items-center h-96">
+        <div class="relative">
+          <div class="w-20 h-20 border-4 border-blue-200 dark:border-blue-800 rounded-full animate-spin"></div>
+          <div class="w-20 h-20 border-4 border-blue-500 dark:border-blue-400 border-t-transparent rounded-full animate-spin absolute top-0 left-0" style="animation-delay: -0.5s"></div>
+          <div class="w-16 h-16 border-4 border-purple-300 dark:border-purple-600 border-t-transparent rounded-full animate-spin absolute top-2 left-2" style="animation-delay: -1s"></div>
+        </div>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div *ngIf="!isLoading && dashboardData" class="space-y-8">
+        <!-- KPI Cards avec design moderne -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Total Diagnostics -->
+          <div class="group bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-3xl p-6 text-white shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-blue-100 dark:text-blue-200 text-sm font-medium">Analyses totales</p>
+                <p class="text-4xl font-bold mt-2">{{ dashboardData.kpi.totalDiagnostics }}</p>
+                <p class="text-blue-200 dark:text-blue-300 text-xs mt-1">+{{ getRandomGrowth() }}% ce mois</p>
+              </div>
+              <div class="bg-white/20 dark:bg-white/10 p-4 rounded-2xl group-hover:bg-white/30 dark:group-hover:bg-white/20 transition-all">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6-6h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Précision IA -->
+          <div class="group bg-gradient-to-br from-emerald-500 to-emerald-600 dark:from-emerald-600 dark:to-emerald-700 rounded-3xl p-6 text-white shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-emerald-100 dark:text-emerald-200 text-sm font-medium">Précision IA</p>
+                <p class="text-4xl font-bold mt-2">
+                  {{ dashboardData.stats.performanceMetrics[0]?.currentValue || 0 }}%
+                </p>
+                <p class="text-emerald-200 dark:text-emerald-300 text-xs mt-1" *ngIf="dashboardData.stats.performanceMetrics[0]?.evolution > 0">
+                  +{{ dashboardData.stats.performanceMetrics[0]?.evolution }}% vs précédent
+                </p>
+              </div>
+              <div class="bg-white/20 dark:bg-white/10 p-4 rounded-2xl group-hover:bg-white/30 dark:group-hover:bg-white/20 transition-all">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Efficacité Traitements -->
+          <div class="group bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 rounded-3xl p-6 text-white shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-purple-100 dark:text-purple-200 text-sm font-medium">Efficacité traitements</p>
+                <p class="text-4xl font-bold mt-2">
+                  {{ getAverageEfficacy() }}%
+                </p>
+                <p class="text-purple-200 dark:text-purple-300 text-xs mt-1">Moyenne toutes cultures</p>
+              </div>
+              <div class="bg-white/20 dark:bg-white/10 p-4 rounded-2xl group-hover:bg-white/30 dark:group-hover:bg-white/20 transition-all">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Temps de diagnostic -->
+          <div class="group bg-gradient-to-br from-amber-500 to-amber-600 dark:from-amber-600 dark:to-amber-700 rounded-3xl p-6 text-white shadow-xl hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-300">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-amber-100 dark:text-amber-200 text-sm font-medium">Temps diagnostic</p>
+                <p class="text-4xl font-bold mt-2">
+                  {{ dashboardData.stats.performanceMetrics[1]?.currentValue || 0 }}min
+                </p>
+                <p class="text-amber-200 dark:text-amber-300 text-xs mt-1">Temps moyen</p>
+              </div>
+              <div class="bg-white/20 dark:bg-white/10 p-4 rounded-2xl group-hover:bg-white/30 dark:group-hover:bg-white/20 transition-all">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts et contenu principal -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Colonne gauche - Graphiques -->
+          <div class="lg:col-span-2 space-y-8">
+            <!-- Graphique distribution des cultures -->
+            <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/20">
+              <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
+                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 dark:from-blue-400 dark:to-purple-400 rounded-xl mr-3"></div>
+                Distribution des cultures
+              </h3>
+              <div class="h-80 bg-white dark:bg-slate-700 rounded-2xl p-4">
+                <canvas #cropChart></canvas>
+              </div>
+            </div>
+
+            <!-- Graphique tendances mensuelles -->
+            <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/20">
+              <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
+                <div class="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-500 dark:from-emerald-400 dark:to-blue-400 rounded-xl mr-3"></div>
+                Tendances des analyses
+              </h3>
+              <div class="h-80 bg-white dark:bg-slate-700 rounded-2xl p-4">
+                <canvas #trendChart></canvas>
+              </div>
+            </div>
+
+            <!-- Statistiques des traitements avec design amélioré -->
+            <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/20">
+              <h3 class="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400 rounded-xl mr-3"></div>
+                Statistiques des traitements
+              </h3>
+              <div class="grid gap-4">
+                <div *ngFor="let treatment of dashboardData.kpi.treatmentStats" 
+                     class="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-2xl p-6 hover:shadow-lg transition-all duration-300">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center">
+                      <div class="w-12 h-12 rounded-2xl flex items-center justify-center mr-4"
+                           [ngClass]="{
+                             'bg-gradient-to-r from-red-400 to-red-500 dark:from-red-500 dark:to-red-600': treatment.cropType === 'PEST',
+                             'bg-gradient-to-r from-green-400 to-green-500 dark:from-green-500 dark:to-green-600': treatment.cropType === 'PLANT',
+                             'bg-gradient-to-r from-gray-400 to-gray-500 dark:from-gray-500 dark:to-gray-600': treatment.cropType === 'UNKNOWN'
+                           }">
+                        <span class="text-white font-bold text-lg">{{ treatment.cropType.charAt(0) }}</span>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-slate-800 dark:text-slate-200">{{ treatment.cropType }}</h4>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Type de culture</p>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <div class="flex items-center space-x-2">
+                        <span class="px-4 py-2 rounded-full text-sm font-bold"
+                              [ngClass]="{
+                                'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200': treatment.efficacyRate > 80,
+                                'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200': treatment.efficacyRate > 50 && treatment.efficacyRate <= 80,
+                                'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': treatment.efficacyRate <= 50
+                              }">
+                          {{ treatment.efficacyRate }}% efficace
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="text-center p-3 bg-blue-50 dark:bg-blue-900/30 rounded-xl">
+                      <p class="text-2xl font-bold text-blue-600 dark:text-blue-400">{{ treatment.recommendedTreatments }}</p>
+                      <p class="text-blue-500 dark:text-blue-300 text-xs">Recommandés</p>
+                    </div>
+                    <div class="text-center p-3 bg-green-50 dark:bg-green-900/30 rounded-xl">
+                      <p class="text-2xl font-bold text-green-600 dark:text-green-400">{{ treatment.appliedTreatments }}</p>
+                      <p class="text-green-500 dark:text-green-300 text-xs">Appliqués</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Colonne droite -->
+          <div class="space-y-8">
+            <!-- Widget météo amélioré -->
+            <div class="bg-gradient-to-br from-cyan-400 via-blue-500 to-blue-600 dark:from-cyan-600 dark:via-blue-700 dark:to-blue-800 rounded-3xl p-8 text-white shadow-xl">
+              <h3 class="text-xl font-bold mb-6 flex items-center">
+                <span class="text-2xl mr-2">🌤️</span>
+                Météo actuelle
+              </h3>
+              <div class="text-center mb-6">
+                <p class="text-6xl font-bold mb-2">{{ dashboardData.weather.temperature }}°</p>
+                <p class="text-blue-100 dark:text-blue-200 text-lg">{{ dashboardData.weather.conditions }}</p>
+                <div class="flex justify-center space-x-4 mt-4 text-blue-100 dark:text-blue-200">
+                  <span>💧 {{ dashboardData.weather.humidity }}%</span>
+                  <span>💨 {{ dashboardData.weather.windSpeed }} km/h</span>
+                </div>
+              </div>
+              <div class="bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <h4 class="font-semibold mb-3">Prévisions 3 jours</h4>
+                <div class="space-y-2">
+                  <div *ngFor="let day of dashboardData.weather.forecast" 
+                       class="flex items-center justify-between text-sm">
+                    <span>{{ formatDate(day.date) }}</span>
+                    <div class="flex items-center space-x-2">
+                      <span>{{ getWeatherIcon(day.conditions) }}</span>
+                      <span>{{ day.temperature.max }}°/{{ day.temperature.min }}°</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Alertes avec design moderne -->
+            <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/20">
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 flex items-center">
+                  <div class="w-6 h-6 bg-gradient-to-r from-red-500 to-orange-500 dark:from-red-400 dark:to-orange-400 rounded-lg mr-2"></div>
+                  Alertes récentes
+                </h3>
+                <span class="bg-gradient-to-r from-red-500 to-red-600 dark:from-red-600 dark:to-red-700 text-white text-xs px-3 py-1 rounded-full font-semibold shadow-lg">
+                  {{ dashboardData.alerts.length }} nouvelles
+                </span>
+              </div>
+              <div class="space-y-4">
+                <div *ngFor="let alert of dashboardData.alerts" 
+                     class="group p-4 rounded-2xl border-l-4 transition-all duration-300 hover:shadow-lg"
+                     [ngClass]="{
+                       'border-red-500 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30': alert.priority === 'CRITICAL',
+                       'border-orange-500 bg-orange-50 hover:bg-orange-100 dark:bg-orange-900/20 dark:hover:bg-orange-900/30': alert.priority === 'HIGH',
+                       'border-yellow-500 bg-yellow-50 hover:bg-yellow-100 dark:bg-yellow-900/20 dark:hover:bg-yellow-900/30': alert.priority === 'MEDIUM'
+                     }">
+                  <div class="flex items-start">
+                    <span class="mr-3 mt-1 p-2 rounded-xl" [ngClass]="{
+                      'bg-red-100 text-red-600 dark:bg-red-800 dark:text-red-200': alert.priority === 'CRITICAL',
+                      'bg-orange-100 text-orange-600 dark:bg-orange-800 dark:text-orange-200': alert.priority === 'HIGH',
+                      'bg-yellow-100 text-yellow-600 dark:bg-yellow-800 dark:text-yellow-200': alert.priority === 'MEDIUM'
+                    }">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                      </svg>
+                    </span>
+                    <div class="flex-1">
+                      <h4 class="font-bold text-slate-800 dark:text-slate-200 group-hover:text-slate-900 dark:group-hover:text-slate-100">{{ alert.title }}</h4>
+                      <p class="text-slate-600 dark:text-slate-300 text-sm mt-1">{{ alert.description }}</p>
+                      <p class="text-slate-400 dark:text-slate-500 text-xs mt-2">{{ formatDate(alert.createdAt) }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Métriques de performance -->
+            <div class="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/20 dark:border-slate-700/20">
+              <h3 class="text-xl font-bold text-slate-800 dark:text-slate-200 mb-6 flex items-center">
+                <div class="w-6 h-6 bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-400 rounded-lg mr-2"></div>
+                Performance
+              </h3>
+              <div class="space-y-6">
+                <div *ngFor="let metric of dashboardData.stats.performanceMetrics" 
+                     class="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-2xl p-4 hover:shadow-lg transition-all">
+                  <div class="flex items-center justify-between">
+                    <div class="flex-1">
+                      <p class="text-sm font-semibold text-slate-700 dark:text-slate-300">{{ metric.metric }}</p>
+                      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Précédent: {{ metric.previousValue }}{{ metric.unit }}</p>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-2xl font-bold text-slate-800 dark:text-slate-200">{{ metric.currentValue }}{{ metric.unit }}</p>
+                      <div class="flex items-center justify-end mt-1">
+                        <span class="text-xs font-semibold px-2 py-1 rounded-full" [ngClass]="{
+                          'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300': metric.evolution > 0,
+                          'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300': metric.evolution <= 0
+                        }">
+                          {{ metric.evolution > 0 ? '↗' : '↘' }} {{ Math.abs(metric.evolution) }}%
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
