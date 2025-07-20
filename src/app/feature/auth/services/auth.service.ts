@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import { ParentService } from '../../../core/services/parent.service';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -45,6 +46,10 @@ export class AuthService extends ParentService{
       case 'apprenant': return '/apprenant/dashboard';
       default: return '/auth/login';
     }
+  }
+
+   register(userData: any): Observable<any> {
+    return this.postData('authUser/register', userData);
   }
 
 }

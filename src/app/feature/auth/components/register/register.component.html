@@ -1,0 +1,247 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-600 to-green-900 p-4 relative overflow-hidden">
+  <!-- Éléments décoratifs d'arrière-plan -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-10 right-10 w-96 h-96 bg-green-600 rounded-full transform rotate-12 -translate-y-1/4 translate-x-1/4"></div>
+    <div class="absolute bottom-10 left-10 w-80 h-80 bg-emerald-500 rounded-full transform -rotate-12 translate-y-1/4 -translate-x-1/4"></div>
+  </div>
+
+  <!-- Conteneur Principal -->
+  <div class="w-full max-w-6xl mx-auto bg-green-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row transform transition-all duration-500 relative z-10 hover:shadow-[0_40px_80px_-20px_rgba(34,197,94,0.2)] border border-gray-700">
+    
+    <!-- Section Image (identique à login) -->
+    <div class="lg:w-1/2 relative hidden lg:block overflow-hidden bg-gradient-to-br from-green-700 to-emerald-800">
+      <div class="absolute inset-0 opacity-15">
+        <div class="w-full h-full bg-gray-900"></div>
+        <div class="absolute top-0 left-0 w-40 h-40 border-t-4 border-l-4 border-white/20 rounded-tl-3xl"></div>
+        <div class="absolute bottom-0 right-0 w-40 h-40 border-b-4 border-r-4 border-white/20 rounded-br-3xl"></div>
+        <div class="absolute top-1/2 left-1/2 w-80 h-80 border-4 border-yellow-400/20 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+      </div>
+
+      <div class="h-full flex flex-col items-center justify-center p-12 relative z-10">
+        <div class="mb-12 transform hover:scale-105 transition-transform duration-300">
+          <div class="w-48 h-48 bg-white rounded-full flex items-center justify-center backdrop-blur-sm border border-white/10 shadow-2xl">
+            <img src="assets/images/Logo.png" alt="PEST AI Logo" class="w-50 h-50 object-contain animate-float filter drop-shadow-lg" />
+          </div>
+        </div>
+        
+        <h3 class="text-4xl font-bold text-white mb-6 text-center tracking-tight">Rejoignez PEST AI</h3>
+        <p class="text-white/80 text-center mb-12 max-w-md text-lg leading-relaxed">
+          Créez votre compte pour commencer à analyser vos cultures et protéger vos récoltes avec notre technologie IA.
+        </p>
+
+        <div class="w-full max-w-md space-y-6">
+          <div class="p-6 rounded-2xl backdrop-blur-sm bg-green-800/40 border border-white/10 shadow-lg transform hover:scale-105 transition-all duration-300">
+            <div class="flex items-center mb-4">
+              <div class="bg-yellow-400 w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                <i class="fa fa-leaf text-green-800 text-xl"></i>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-lg">Diagnostics précis</h4>
+                <p class="text-white/70 text-sm">Identification des maladies et ravageurs</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="p-6 rounded-2xl backdrop-blur-sm bg-green-800/40 border border-white/10 shadow-lg transform hover:scale-105 transition-all duration-300">
+            <div class="flex items-center mb-4">
+              <div class="bg-yellow-400 w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-lg">
+                <i class="fa fa-chart-line text-green-800 text-xl"></i>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-lg">Suivi personnalisé</h4>
+                <p class="text-white/70 text-sm">Historique et recommandations</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Formulaire -->
+    <div class="lg:w-1/2 p-8 sm:p-12 relative bg-gradient-to-br from-gray-600 to-gray-700">
+      <div class="absolute top-0 right-0 w-72 h-72 -mt-20 -mr-20">
+        <div class="w-full h-full bg-gradient-to-br from-green-600/5 to-emerald-600/5 rounded-full"></div>
+      </div>
+      <div class="absolute bottom-0 left-0 w-64 h-64 -mb-20 -ml-20">
+        <div class="w-full h-full bg-gradient-to-tr from-yellow-400/5 to-green-600/5 rounded-full"></div>
+      </div>
+
+      <div class="text-center mb-12 relative z-10">
+        <div class="flex justify-center mb-8 lg:hidden">
+          <div class="w-20 h-20 bg-gradient-to-br from-green-600 to-emerald-700 rounded-full flex items-center justify-center shadow-lg">
+            <img src="assets/images/Logo.png" alt="PEST AI Logo" class="w-12 h-12 object-contain" />
+          </div>
+        </div>
+        <h2 class="text-4xl font-bold text-white mb-3">Créer un compte</h2>
+        <p class="text-gray-300 text-lg">Commencez votre expérience agricole intelligente</p>
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="relative z-10">
+        <div class="space-y-6">
+          <!-- Nom Complet -->
+          <div class="group">
+            <label class="flex items-center text-gray-200 font-semibold mb-3 text-sm tracking-wide">
+              <i class="fa fa-user mr-2 text-green-400"></i>
+              Nom complet 
+              <span class="text-yellow-400 ml-2 text-lg">★</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fa fa-user text-green-400 text-lg"></i>
+              </div>
+              <input type="text" formControlName="nomComplet" 
+                class="pl-14 pr-5 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
+                placeholder="Votre nom complet">
+            </div>
+            <div *ngIf="registerForm.get('nomComplet')?.invalid && registerForm.get('nomComplet')?.touched"
+              class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
+              <i class="fa fa-exclamation-triangle mr-2"></i>
+              Veuillez entrer un nom valide (min. 3 caractères).
+            </div>
+          </div>
+
+          <!-- Téléphone -->
+          <div class="group">
+            <label class="flex items-center text-gray-200 font-semibold mb-3 text-sm tracking-wide">
+              <i class="fa fa-phone mr-2 text-green-400"></i>
+              Téléphone 
+              <span class="text-yellow-400 ml-2 text-lg">★</span>
+            </label>
+            <div class="flex">
+              <div class="relative w-1/4 mr-4">
+                <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                  <i class="fa fa-globe text-green-400 text-lg"></i>
+                </div>
+                <input type="text" formControlName="indicateurPaysCode" 
+                  class="pl-14 pr-5 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
+                  placeholder="Code pays">
+              </div>
+              <div class="relative w-3/4">
+                <input type="text" formControlName="telephone" 
+                  class="pl-14 pr-5 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
+                  placeholder="Votre numéro de téléphone">
+                <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                  <i class="fa fa-phone text-green-400 text-lg"></i>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="registerForm.get('telephone')?.invalid && registerForm.get('telephone')?.touched"
+              class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
+              <i class="fa fa-exclamation-triangle mr-2"></i>
+              Veuillez entrer un numéro valide (9 chiffres).
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="group">
+            <label class="flex items-center text-gray-200 font-semibold mb-3 text-sm tracking-wide">
+              <i class="fa fa-envelope mr-2 text-green-400"></i>
+              Email 
+              <span class="text-yellow-400 ml-2 text-lg">★</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fa fa-envelope text-green-400 text-lg"></i>
+              </div>
+              <input type="email" formControlName="email" 
+                class="pl-14 pr-5 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
+                placeholder="Votre adresse email">
+            </div>
+            <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+              class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
+              <i class="fa fa-exclamation-triangle mr-2"></i>
+              Veuillez entrer une adresse email valide.
+            </div>
+          </div>
+
+          <!-- Mot de passe -->
+          <div class="group">
+            <label class="flex items-center text-gray-200 font-semibold mb-3 text-sm tracking-wide">
+              <i class="fa fa-lock mr-2 text-green-400"></i>
+              Mot de passe 
+              <span class="text-yellow-400 ml-2 text-lg">★</span>
+            </label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                <i class="fa fa-lock text-green-400 text-lg"></i>
+              </div>
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" 
+                class="pl-14 pr-14 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
+                placeholder="Créez un mot de passe">
+              <button type="button" (click)="togglePasswordVisibility()"
+                class="absolute inset-y-0 right-0 flex items-center pr-5 text-green-400 hover:text-green-300 transition-all duration-300 transform hover:scale-110">
+                <i class="fa text-lg" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              </button>
+            </div>
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+              class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
+              <i class="fa fa-exclamation-triangle mr-2"></i>
+              Le mot de passe doit comporter au moins 6 caractères.
+            </div>
+          </div>
+
+          <!-- Bouton d'inscription -->
+          <div class="pt-8">
+            <button type="submit" [disabled]="registerForm.invalid || isLoading"
+              class="group w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-5 px-8 rounded-2xl shadow-xl transition-all duration-300 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(34,197,94,0.4)]">
+              
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+              
+              <span *ngIf="!isLoading" class="relative z-10 flex items-center justify-center text-lg">
+                <i class="fa fa-user-plus mr-3 group-hover:mr-4 transition-all duration-300"></i>
+                S'inscrire
+              </span>
+              
+              <span *ngIf="isLoading" class="flex items-center justify-center text-lg">
+                <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Création en cours...
+              </span>
+            </button>
+          </div>
+
+          <!-- Lien vers login -->
+          <div class="text-center mt-6">
+            <p class="text-gray-300">Déjà un compte? 
+              <a routerLink="/auth/login" class="text-green-400 hover:text-green-300 font-semibold ml-2 transition-all duration-300 border-b-2 border-transparent hover:border-green-400">
+                Connectez-vous
+              </a>
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Styles CSS (identique à login) -->
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+  }
+  
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  
+  .animate-fadeIn {
+    animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+  
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+</style>

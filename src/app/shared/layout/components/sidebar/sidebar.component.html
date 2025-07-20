@@ -41,7 +41,7 @@
       <ul class="space-y-2">
         <!-- Diagnostic IA -->
         <li class="group">
-          <a routerLink="/diagnostic"
+          <a routerLink="user/diagnostic"
              routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
              class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
             
@@ -69,7 +69,7 @@
 
         <!-- Tableau de bord -->
         <li class="group">
-          <a routerLink="/dashboard"
+          <a routerLink="user/dashboard"
              routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
              class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
             
@@ -96,7 +96,7 @@
         </li>
 
         <!-- Base de connaissances -->
-        <li class="group">
+        <!-- <li class="group">
           <a routerLink="/knowledge-base"
              routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
              class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
@@ -121,10 +121,10 @@
               </div>
             </div>
           </a>
-        </li>
+        </li> -->
 
         <!-- Alertes & Météo -->
-        <li class="group">
+        <!-- <li class="group">
           <a routerLink="/alerts"
              routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
              class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
@@ -149,7 +149,7 @@
               </div>
             </div>
           </a>
-        </li>
+        </li> -->
       </ul>
     </nav>
 
@@ -168,9 +168,7 @@
   </div>
 
   <!-- Sidebar mobile -->
-  <div class="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
-       [ngClass]="{ 'opacity-0 pointer-events-none': !mobileMenuOpen, 'opacity-100': mobileMenuOpen }"
-       (click)="toggleMobileMenu()"></div>
+
   
   <div class="lg:hidden fixed inset-y-0 left-0 w-72 bg-gradient-to-b from-primary to-green-700 dark:from-gray-800 dark:to-gray-900 z-50 transform transition-all duration-500 ease-out shadow-2xl"
        [ngClass]="{

@@ -44,6 +44,7 @@ export class LoginComponent {
         ).subscribe({
           next: (response: any) => {
               localStorage.setItem(environment.appName + "_token", response.data[0].accessToken);
+             window.location.reload()
     
           },
           error: (error: any) => {
