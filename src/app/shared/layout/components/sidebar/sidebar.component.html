@@ -1,0 +1,317 @@
+<!-- sidebar.component.html -->
+<div class="sidebar-container h-screen fixed lg:relative z-30"
+     [ngClass]="{ 'w-64': isExpanded, 'w-16': !isExpanded }"
+     [class.pointer-events-auto]="isDesktop() || mobileMenuOpen"
+     [class.pointer-events-none]="!isDesktop() && !mobileMenuOpen">
+  
+  <!-- Sidebar pour desktop -->
+  <div class="hidden lg:flex flex-col h-full bg-gradient-to-b from-primary via-primary to-green-700 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 shadow-2xl transition-all duration-500 ease-out backdrop-blur-sm relative overflow-hidden"
+       [ngClass]="{ 'w-64': isExpanded, 'w-16': !isExpanded }">
+    
+    <!-- Effet de brillance -->
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] animate-shine"></div>
+    
+    <!-- Toggle button -->
+    <div class="absolute -right-3 top-8 z-10">
+      <button (click)="toggleSidebar()" 
+              class="bg-white dark:bg-gray-700 rounded-full p-1.5 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary dark:text-green-400 transition-transform duration-300"
+             [ngClass]="{ 'rotate-180': !isExpanded }"
+             fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Logo Section -->
+    <div class="flex items-center justify-center py-6 relative">
+      <div class="relative group">
+        <div class="absolute inset-0 bg-gradient-to-r from-green-400 to-green-600 rounded-full blur opacity-20 group-hover:opacity-40 transition-opacity duration-300"></div>
+        <div class="relative rounded-full p-2">
+          <img src="assets/images/Logo.png" 
+               alt="Logo" 
+               [ngClass]="isExpanded ? 'w-32' : 'w-8'"
+               class="transition-all duration-500 ease-out filter drop-shadow-xl hover:drop-shadow-2xl animate-float" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation items -->
+    <nav class="flex-1 overflow-visible py-4 px-2">
+      <ul class="space-y-2">
+        <!-- Diagnostic IA -->
+        <li class="group">
+          <a routerLink="/diagnostic"
+             routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
+             class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            
+            <div class="relative z-10 flex items-center w-full">
+              <div class="p-2 rounded-lg bg-white/10 group-hover:bg-white/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <span *ngIf="isExpanded" 
+                    class="ml-4 font-medium text-sm transition-all duration-300 opacity-0 animate-fadeInRight"
+                    [ngClass]="{ 'opacity-100': isExpanded }">
+                Diagnostic IA
+              </span>
+              <div *ngIf="!isExpanded" 
+                   class="absolute left-16 bg-gray-900 dark:bg-gray-700 text-white text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap z-50">
+                Diagnostic IA
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Tableau de bord -->
+        <li class="group">
+          <a routerLink="/dashboard"
+             routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
+             class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            
+            <div class="relative z-10 flex items-center w-full">
+              <div class="p-2 rounded-lg bg-white/10 group-hover:bg-white/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <span *ngIf="isExpanded" 
+                    class="ml-4 font-medium text-sm transition-all duration-300 opacity-0 animate-fadeInRight"
+                    [ngClass]="{ 'opacity-100': isExpanded }">
+                Tableau de bord
+              </span>
+              <div *ngIf="!isExpanded" 
+                   class="absolute left-16 bg-gray-900 dark:bg-gray-700 text-white text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap z-50">
+                Tableau de bord
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Base de connaissances -->
+        <li class="group">
+          <a routerLink="/knowledge-base"
+             routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
+             class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            
+            <div class="relative z-10 flex items-center w-full">
+              <div class="p-2 rounded-lg bg-white/10 group-hover:bg-white/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <span *ngIf="isExpanded" 
+                    class="ml-4 font-medium text-sm transition-all duration-300 opacity-0 animate-fadeInRight"
+                    [ngClass]="{ 'opacity-100': isExpanded }">
+                Base de connaissances
+              </span>
+              <div *ngIf="!isExpanded" 
+                   class="absolute left-16 bg-gray-900 dark:bg-gray-700 text-white text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap z-50">
+                Base de connaissances
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+
+        <!-- Alertes & Météo -->
+        <li class="group">
+          <a routerLink="/alerts"
+             routerLinkActive="bg-gradient-to-r from-secondary to-green-600 dark:from-gray-700 dark:to-gray-600 scale-105 shadow-lg"
+             class="flex items-center px-3 py-4 mx-1 text-white dark:text-gray-200 rounded-xl transition-all duration-300 hover:bg-gradient-to-r hover:from-secondary hover:to-green-600 dark:hover:from-gray-700 dark:hover:to-gray-600 hover:scale-105 hover:shadow-lg relative overflow-hidden group">
+            
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+            
+            <div class="relative z-10 flex items-center w-full">
+              <div class="p-2 rounded-lg bg-white/10 group-hover:bg-white/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <span *ngIf="isExpanded" 
+                    class="ml-4 font-medium text-sm transition-all duration-300 opacity-0 animate-fadeInRight"
+                    [ngClass]="{ 'opacity-100': isExpanded }">
+                Alertes & Météo
+              </span>
+              <div *ngIf="!isExpanded" 
+                   class="absolute left-16 bg-gray-900 dark:bg-gray-700 text-white text-sm px-3 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 whitespace-nowrap z-50">
+                Alertes & Météo
+                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1 border-4 border-transparent border-r-gray-900 dark:border-r-gray-700"></div>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Footer with version or status -->
+    <div class="p-4 border-t border-white/10">
+      <div *ngIf="isExpanded" class="text-center text-white/60 text-xs animate-fadeInRight">
+        <div class="flex items-center justify-center space-x-2">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span>PEST AI v2.0</span>
+        </div>
+      </div>
+      <div *ngIf="!isExpanded" class="flex justify-center">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar mobile -->
+  <div class="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+       [ngClass]="{ 'opacity-0 pointer-events-none': !mobileMenuOpen, 'opacity-100': mobileMenuOpen }"
+       (click)="toggleMobileMenu()"></div>
+  
+  <div class="lg:hidden fixed inset-y-0 left-0 w-72 bg-gradient-to-b from-primary to-green-700 dark:from-gray-800 dark:to-gray-900 z-50 transform transition-all duration-500 ease-out shadow-2xl"
+       [ngClass]="{
+         'translate-x-0': mobileMenuOpen,
+         '-translate-x-full': !mobileMenuOpen
+       }">
+    
+    <!-- Mobile Header -->
+    <div class="flex items-center justify-between h-16 border-b border-white/20 px-6 bg-gradient-to-r from-primary to-green-600">
+      <div class="flex items-center space-x-3">
+        <img src="assets/images/Logo.png" alt="Logo" class="h-10" />
+        <span class="text-white font-bold text-lg">PEST AI</span>
+      </div>
+      <button (click)="toggleMobileMenu()" 
+              class="text-white hover:bg-white/10 rounded-lg p-2 transition-all duration-300 hover:scale-110">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav class="flex-1 overflow-y-auto py-6 px-4">
+      <ul class="space-y-3">
+        <li>
+          <a routerLink="/diagnostic" 
+             (click)="toggleMobileMenu()"
+             class="flex items-center px-4 py-4 text-white rounded-xl transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95">
+            <div class="p-2 rounded-lg bg-white/10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <span class="ml-4 font-medium">Diagnostic IA</span>
+          </a>
+        </li>
+        
+        <li>
+          <a routerLink="/dashboard" 
+             (click)="toggleMobileMenu()"
+             class="flex items-center px-4 py-4 text-white rounded-xl transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95">
+            <div class="p-2 rounded-lg bg-white/10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <span class="ml-4 font-medium">Tableau de bord</span>
+          </a>
+        </li>
+        
+        <li>
+          <a routerLink="/knowledge-base" 
+             (click)="toggleMobileMenu()"
+             class="flex items-center px-4 py-4 text-white rounded-xl transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95">
+            <div class="p-2 rounded-lg bg-white/10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+              </svg>
+            </div>
+            <span class="ml-4 font-medium">Base de connaissances</span>
+          </a>
+        </li>
+        
+        <li>
+          <a routerLink="/alerts" 
+             (click)="toggleMobileMenu()"
+             class="flex items-center px-4 py-4 text-white rounded-xl transition-all duration-300 hover:bg-white/10 hover:scale-105 active:scale-95">
+            <div class="p-2 rounded-lg bg-white/10">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <span class="ml-4 font-medium">Alertes & Météo</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Footer -->
+    <div class="p-6 border-t border-white/20">
+      <div class="text-center text-white/60 text-sm">
+        <div class="flex items-center justify-center space-x-2">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span>PEST AI v2.0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* Animations personnalisées */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-shine {
+  animation: shine 3s ease-in-out infinite;
+}
+
+.animate-fadeInRight {
+  animation: fadeInRight 0.5s ease-out forwards;
+}
+
+/* Scrollbar personnalisée */
+.sidebar-container nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-container nav::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+.sidebar-container nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+}
+
+.sidebar-container nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+</style>

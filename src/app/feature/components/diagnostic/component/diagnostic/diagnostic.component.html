@@ -1,0 +1,330 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900">
+  <!-- Header -->
+  <div class="bg-white shadow-sm border-b dark:bg-gray-800 ">
+    <div class="container mx-auto px-4 py-6">
+      <div class="flex items-center">
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L13.09 8.26L19.36 9L13.09 9.74L12 16L10.91 9.74L4.64 9L10.91 8.26L12 2Z"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-2xl font-bold text-gray-800 dark:text-white">PEST AI</h1>
+            <p class="text-sm text-gray-600">Diagnostic intelligent des cultures</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Section Upload -->
+      <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200 dark:bg-gray-900">
+        <div class="flex items-center mb-6">
+          <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center mr-3">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-300">Nouvelle analyse</h2>
+        </div>
+        
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-3">Sélectionner une image de votre culture</label>
+          <div class="relative">
+            <input 
+              type="file" 
+              (change)="onFileSelected($event)"
+              accept="image/*"
+              class="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-3 file:px-6
+                    file:rounded-lg file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-green-600 file:text-white
+                    hover:file:bg-green-700 file:cursor-pointer
+                    cursor-pointer border-2 border-dashed border-gray-300
+                    rounded-lg p-6 hover:border-green-400 transition-colors">
+          </div>
+        </div>
+
+        <!-- Prévisualisation -->
+        <div *ngIf="previewUrl" class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-3">Prévisualisation de l'image</label>
+          <div class="border-2 border-gray-200 rounded-xl overflow-hidden bg-gray-50 dark:bg-gray-900">
+            <img [src]="previewUrl" alt="Preview" class="w-full h-auto max-h-80 object-contain mx-auto">
+          </div>
+        </div>
+
+        <button 
+          (click)="analyzeImage()"
+          [disabled]="!selectedFile || isLoading"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-200 transform hover:scale-105
+                 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none shadow-lg hover:shadow-xl">
+          
+          <span *ngIf="!isLoading" class="flex items-center justify-center">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            Lancer l'analyse IA
+          </span>
+          <span *ngIf="isLoading" class="flex items-center justify-center">
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Analyse en cours...
+          </span>
+        </button>
+
+        <!-- Message IA -->
+        <div *ngIf="isLoading" class="mt-6 p-6 bg-green-50 rounded-xl border border-green-200">
+          <div class="flex items-start">
+            <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+              <svg class="h-5 w-5 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L13.09 8.26L19.36 9L13.09 9.74L12 16L10.91 9.74L4.64 9L10.91 8.26L12 2Z"/>
+              </svg>
+            </div>
+            <div class="ml-4">
+              <h3 class="text-sm font-semibold text-green-800 mb-1">Intelligence artificielle en action</h3>
+              <div class="text-sm text-green-700 space-y-1">
+                <p>🔍 Analyse des maladies et ravageurs</p>
+                <p>🌱 Évaluation nutritionnelle</p>
+                <p>💡 Génération de recommandations personnalisées</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section Historique -->
+      <div class="bg-white rounded-xl shadow-lg p-8 border border-gray-200 dark:bg-gray-900">
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-300">Historique des analyses</h2>
+          </div>
+          <span class="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full dark:text-gray-400">{{ history.length }} analyses</span>
+        </div>
+        
+        <div *ngIf="history.length === 0" class="text-center py-12">
+          <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <p class="text-gray-500 font-medium">Aucune analyse récente</p>
+          <p class="text-sm text-gray-400 mt-1">Commencez par télécharger une image</p>
+        </div>
+
+        <div *ngIf="history.length > 0" class="space-y-4 max-h-96 overflow-y-auto">
+          <div *ngFor="let item of history; let i = index" 
+               class="group border border-gray-200 rounded-xl p-4 hover:border-green-300 hover:shadow-md transition-all duration-200 cursor-pointer"
+               (click)="viewDetails(item)">
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 h-16 w-16 rounded-xl overflow-hidden bg-gray-100 border-2 border-gray-200">
+                <img [src]="item.url" alt="Analyse {{ i + 1 }}" class="h-full w-full object-cover">
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-sm font-semibold text-gray-900 truncate">
+                    {{ item.analysisResult?.subject?.description || item.type }}
+                  </h3>
+                  <span class="text-xs px-2 py-1 rounded-full" 
+                        [ngClass]="getSeverityColor(item.detections[0]?.severity)">
+                    {{ translateSeverity(item.detections[0]?.severity) }}
+                  </span>
+                </div>
+                <p class="text-xs text-gray-500 mb-1">{{ formatDate(item.timestamp) }}</p>
+                <div class="flex items-center justify-between">
+                  <p class="text-xs text-gray-600">
+                    <span class="inline-flex items-center">
+                      <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                      </svg>
+                      {{ item.detections.length }} détection(s)
+                    </span>
+                  </p>
+                  <div class="text-xs text-green-600 group-hover:text-green-700 font-medium">
+                    Voir détails →
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal des résultats -->
+  <div *ngIf="showModal" class="fixed inset-0 z-50 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" (click)="closeModal()"></div>
+      
+      <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all w-full max-w-4xl">
+        <!-- Header du modal -->
+        <div class="bg-green-600 px-8 py-6">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                <svg class="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L13.09 8.26L19.36 9L13.09 9.74L12 16L10.91 9.74L4.64 9L10.91 8.26L12 2Z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white">Résultats de l'analyse</h3>
+                <p class="text-green-100 text-sm">{{ currentResult?.analysisResult?.subject?.description }}</p>
+              </div>
+            </div>
+            <button (click)="closeModal()" 
+                    class="text-white hover:text-green-200 p-2 hover:bg-white hover:bg-opacity-20 rounded-lg transition-colors">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="px-8 py-6 max-h-96 overflow-y-auto">
+          <div *ngIf="currentResult" class="space-y-6">
+            
+            <!-- Informations principales -->
+            <div class="bg-gray-50 rounded-xl p-6">
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-green-600">
+                    {{ (currentResult.analysisResult.subject.confidence * 100) | number:'1.0-0' }}%
+                  </div>
+                  <div class="text-sm text-gray-600">Confiance</div>
+                </div>
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-orange-600">
+                    {{ currentResult.analysisResult.detections?.length || 0 }}
+                  </div>
+                  <div class="text-sm text-gray-600">Détections</div>
+                </div>
+                <div class="text-center">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+                        [ngClass]="getSeverityColor(currentResult.analysisResult.detections[0]?.severity)">
+                    {{ translateSeverity(currentResult.analysisResult.detections[0]?.severity) }}
+                  </span>
+                  <div class="text-sm text-gray-600 mt-1">Sévérité</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div *ngIf="currentResult.analysisResult.detections[0]?.details?.description">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Description
+              </h4>
+              <p class="text-gray-700 bg-blue-50 p-4 rounded-lg">
+                {{ currentResult.analysisResult.detections[0].details.description }}
+              </p>
+            </div>
+
+            <!-- Impact -->
+            <div *ngIf="currentResult.analysisResult.detections[0]?.details?.impact">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.864-.833-2.634 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                </svg>
+                Impact sur les cultures
+              </h4>
+              <p class="text-gray-700 bg-orange-50 p-4 rounded-lg">
+                {{ currentResult.analysisResult.detections[0].details.impact }}
+              </p>
+            </div>
+
+            <!-- Recommandations -->
+            <div *ngIf="currentResult.analysisResult.detections[0]?.details?.recommendations">
+              <h4 class="font-semibold text-gray-800 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                </svg>
+                Solutions recommandées
+              </h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Solutions biologiques -->
+                <div *ngIf="currentResult.analysisResult.detections[0].details.recommendations.biological" 
+                     class="bg-green-50 border border-green-200 rounded-xl p-5">
+                  <h5 class="font-semibold text-green-800 mb-3 flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                    </svg>
+                    Solutions biologiques
+                  </h5>
+                  <div class="space-y-3">
+                    <div *ngFor="let bio of currentResult.analysisResult.detections[0].details.recommendations.biological" 
+                         class="bg-white p-3 rounded-lg border border-green-100">
+                      <p class="font-medium text-green-800 text-sm mb-1">{{ bio.solution }}</p>
+                      <p class="text-green-700 text-xs">{{ bio.details }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Solutions chimiques -->
+                <div *ngIf="currentResult.analysisResult.detections[0].details.recommendations.chemical" 
+                     class="bg-orange-50 border border-orange-200 rounded-xl p-5">
+                  <h5 class="font-semibold text-orange-800 mb-3 flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                    </svg>
+                    Solutions chimiques
+                  </h5>
+                  <div class="space-y-3">
+                    <div *ngFor="let chem of currentResult.analysisResult.detections[0].details.recommendations.chemical" 
+                         class="bg-white p-3 rounded-lg border border-orange-100">
+                      <p class="font-medium text-orange-800 text-sm mb-1">{{ chem.solution }}</p>
+                      <p class="text-orange-700 text-xs mb-1">{{ chem.details }}</p>
+                      <p *ngIf="chem.dosage" class="text-orange-600 text-xs font-medium">Dosage: {{ chem.dosage }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Solutions culturales -->
+                <div *ngIf="currentResult.analysisResult.detections[0].details.recommendations.cultural" 
+                     class="bg-blue-50 border border-blue-200 rounded-xl p-5">
+                  <h5 class="font-semibold text-blue-800 mb-3 flex items-center">
+                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                    Pratiques culturales
+                  </h5>
+                  <div class="space-y-3">
+                    <div *ngFor="let cult of currentResult.analysisResult.detections[0].details.recommendations.cultural" 
+                         class="bg-white p-3 rounded-lg border border-blue-100">
+                      <p class="font-medium text-blue-800 text-sm mb-1">{{ cult.solution }}</p>
+                      <p class="text-blue-700 text-xs">{{ cult.details }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer du modal -->
+        <div class="bg-gray-50 px-8 py-4 flex justify-end space-x-3">
+          <button (click)="closeModal()" 
+                  class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors font-medium">
+            Fermer
+          </button>
+          <button class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium">
+            Télécharger le rapport
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
