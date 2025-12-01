@@ -1,8 +1,8 @@
-<div class="container">
+<div class="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 flex flex-col font-sans">
   <!-- Header -->
-  <div class="header">
-    <h1>🌾 Gestion des Parcelles Agricoles</h1>
-    <div class="header-actions">
+  <div class="bg-white px-8 py-5 flex justify-between items-center shadow-lg z-50">
+    <h1 class="text-2xl text-gray-900 font-bold">🌾 Gestion des Parcelles Agricoles</h1>
+    <div class="flex gap-3">
       <button class="btn btn-primary" (click)="ouvrirFormulaire()">
         ➕ Nouvelle Parcelle
       </button>
@@ -13,30 +13,30 @@
         💾 Exporter
       </button>
       <input #fileInput type="file" accept=".geojson,.json,.kml"
-             (change)="importerFichier($event)" style="display: none;">
+             (change)="importerFichier($event)" class="hidden">
     </div>
   </div>
 
-  <div class="main-content">
+  <div class="flex flex-1 overflow-hidden gap-5 p-5">
     <!-- Carte -->
-    <div class="map-container">
-      <div id="map" class="map"></div>
-      <div class="map-info">
-        <p>✏️ Plusieurs méthodes d'ajout disponibles</p>
-        <p>📊 Total: {{parcelles.length}} parcelle(s)</p>
+    <div class="flex-1 relative rounded-xl overflow-hidden shadow-2xl">
+      <div id="map" class="w-full h-full rounded-xl"></div>
+      <div class="absolute bottom-5 left-5 bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-lg">
+        <p class="my-1 text-gray-600 text-sm">✏️ Plusieurs méthodes d'ajout disponibles</p>
+        <p class="my-1 text-gray-600 text-sm">📊 Total: {{parcelles.length}} parcelle(s)</p>
       </div>
     </div>
 
     <!-- Panneau latéral -->
-    <div class="sidebar">
+    <div class="w-96 bg-white rounded-xl p-6 overflow-y-auto shadow-xl">
       <!-- Liste des parcelles -->
-      <div class="parcelles-list" *ngIf="!selectedParcelle">
-        <h3>📋 Mes Parcelles</h3>
+      <div *ngIf="!selectedParcelle">
+        <h3 class="text-gray-900 mb-5 text-lg">📋 Mes Parcelles</h3>
         <div class="parcelle-card" *ngFor="let parcelle of parcelles"
              (click)="selectedParcelle = parcelle"
              [style.border-left-color]="getCouleurCulture(parcelle.culture)">
-          <h4>{{parcelle.nom}}</h4>
-          <div class="parcelle-info">
+          <h4 class="text-gray-900 mb-2 text-base">{{parcelle.nom}}</h4>
+          <div class="flex justify-between items-center text-sm text-gray-500">
             <span class="badge">{{parcelle.culture}}</span>
             <span>{{parcelle.surface}} ha</span>
           </div>
@@ -44,29 +44,31 @@
       </div>
 
       <!-- Détails de la parcelle -->
-      <div class="parcelle-details" *ngIf="selectedParcelle">
-        <button class="btn-back" (click)="selectedParcelle = null">← Retour</button>
+      <div *ngIf="selectedParcelle" class="animate-slide-in-right">
+        <button class="bg-gray-100 border-none px-4 py-2 rounded cursor-pointer mb-5 font-semibold text-gray-600"
+                (click)="selectedParcelle = null">← Retour</button>
 
-        <h2>{{selectedParcelle.nom}}</h2>
-        <div class="detail-grid">
-          <div class="detail-item">
-            <label>Culture</label>
-            <span class="badge-large" [style.background-color]="getCouleurCulture(selectedParcelle.culture)">
+        <h2 class="text-gray-900 text-xl mb-4">{{selectedParcelle.nom}}</h2>
+        <div class="grid gap-4 my-5">
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <label class="block text-gray-500 text-xs mb-2 font-semibold uppercase tracking-wider">Culture</label>
+            <span class="badge-large text-white font-semibold inline-block"
+                  [style.background-color]="getCouleurCulture(selectedParcelle.culture)">
               {{selectedParcelle.culture}}
             </span>
           </div>
-          <div class="detail-item">
-            <label>Surface</label>
-            <span>{{selectedParcelle.surface}} ha</span>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <label class="block text-gray-500 text-xs mb-2 font-semibold uppercase tracking-wider">Surface</label>
+            <span class="text-gray-900 text-base font-semibold">{{selectedParcelle.surface}} ha</span>
           </div>
-          <div class="detail-item">
-            <label>Date création</label>
-            <span>{{selectedParcelle.dateCreation | date:'dd/MM/yyyy'}}</span>
+          <div class="bg-gray-50 p-4 rounded-lg">
+            <label class="block text-gray-500 text-xs mb-2 font-semibold uppercase tracking-wider">Date création</label>
+            <span class="text-gray-900 text-base font-semibold">{{selectedParcelle.dateCreation | date:'dd/MM/yyyy'}}</span>
           </div>
         </div>
 
-        <div class="actions-section">
-          <h3>Actions rapides</h3>
+        <div class="my-6">
+          <h3 class="text-gray-900 mb-4 text-base">Actions rapides</h3>
           <button class="btn btn-small btn-success" (click)="ajouterHistorique('observation')">
             👁️ Observation
           </button>
@@ -78,21 +80,21 @@
           </button>
         </div>
 
-        <div class="historique-section">
-          <h3>📅 Historique</h3>
+        <div class="mt-6">
+          <h3 class="text-gray-900 mb-4 text-base">📅 Historique</h3>
           <div class="historique-item" *ngFor="let item of selectedParcelle.historique"
                [class.incident]="item.type === 'incident'"
                [class.action]="item.type === 'action'"
                [class.observation]="item.type === 'observation'">
-            <div class="historique-header">
+            <div class="flex justify-between mb-2">
               <span class="historique-type">{{item.type}}</span>
               <span class="historique-date">{{item.date | date:'dd/MM/yyyy HH:mm'}}</span>
             </div>
-            <p>{{item.description}}</p>
+            <p class="text-gray-600 text-sm leading-relaxed">{{item.description}}</p>
           </div>
         </div>
 
-        <button class="btn btn-danger" (click)="supprimerParcelle(selectedParcelle.id)">
+        <button class="btn btn-danger w-full mt-5" (click)="supprimerParcelle(selectedParcelle.id)">
           🗑️ Supprimer la parcelle
         </button>
       </div>
@@ -100,17 +102,20 @@
   </div>
 
   <!-- Formulaire Modal avec sélection de méthode -->
-  <div class="modal-overlay" *ngIf="showForm" (click)="fermerFormulaire()">
-    <div class="modal modal-large" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>➕ Nouvelle Parcelle</h2>
-        <button class="btn-close" (click)="fermerFormulaire()">✕</button>
+  <div class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[1000] animate-fade-in"
+       *ngIf="showForm" (click)="fermerFormulaire()">
+    <div class="bg-white rounded-2xl w-11/12 max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl animate-scale-in"
+         (click)="$event.stopPropagation()">
+      <div class="flex justify-between items-center px-8 py-6 border-b border-gray-200">
+        <h2 class="text-gray-900 text-xl">➕ Nouvelle Parcelle</h2>
+        <button class="bg-gray-100 border-none w-9 h-9 rounded-full text-xl cursor-pointer text-gray-500 transition-all duration-300 hover:bg-gray-200 hover:rotate-90"
+                (click)="fermerFormulaire()">✕</button>
       </div>
 
       <!-- Sélection de la méthode d'ajout -->
-      <div class="method-selector">
-        <h3>Choisissez une méthode d'ajout :</h3>
-        <div class="method-cards">
+      <div class="px-8 py-5 bg-gray-50 border-b border-gray-200">
+        <h3 class="text-gray-900 mb-4 text-base">Choisissez une méthode d'ajout :</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div class="method-card"
                [class.active]="modeAjout === 'manuel'"
                (click)="changerModeAjout('manuel')">
@@ -137,21 +142,23 @@
         </div>
       </div>
 
-      <form (ngSubmit)="ajouterParcelle()" class="form">
+      <form (ngSubmit)="ajouterParcelle()" class="p-8">
         <!-- Informations de base (toujours visibles) -->
-        <div class="form-section">
-          <h3>Informations de la parcelle</h3>
+        <div class="py-5 border-b border-gray-200">
+          <h3 class="text-gray-900 mb-5 text-base font-bold">Informations de la parcelle</h3>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Nom de la parcelle *</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-6">
+              <label class="block text-gray-700 font-semibold mb-2 text-sm">Nom de la parcelle *</label>
               <input type="text" [(ngModel)]="nouvelleParcelle.nom" name="nom"
-                     placeholder="Ex: Parcelle Nord" required>
+                     placeholder="Ex: Parcelle Nord" required
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
             </div>
 
-            <div class="form-group">
-              <label>Culture *</label>
-              <select [(ngModel)]="nouvelleParcelle.culture" name="culture" required>
+            <div class="mb-6">
+              <label class="block text-gray-700 font-semibold mb-2 text-sm">Culture *</label>
+              <select [(ngModel)]="nouvelleParcelle.culture" name="culture" required
+                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
                 <option value="">Sélectionner une culture</option>
                 <option *ngFor="let culture of cultures" [value]="culture">{{culture}}</option>
               </select>
@@ -160,10 +167,10 @@
         </div>
 
         <!-- MODE 1: Position + Dimensions (Manuel) -->
-        <div class="form-section" *ngIf="modeAjout === 'manuel'">
-          <h3>🎯 Définir la position et les dimensions</h3>
+        <div class="py-5 border-b border-gray-200" *ngIf="modeAjout === 'manuel'">
+          <h3 class="text-gray-900 mb-5 text-base font-bold">🎯 Définir la position et les dimensions</h3>
 
-          <div class="quick-actions">
+          <div class="flex gap-3 mb-5 flex-wrap">
             <button type="button" class="btn btn-small btn-info" (click)="utiliserPositionActuelle()">
               📍 Utiliser ma position GPS
             </button>
@@ -172,79 +179,84 @@
             </button>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Latitude *</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2 text-sm">Latitude *</label>
               <input type="number" [(ngModel)]="nouvelleParcelle.latitude"
                      name="latitude" step="0.000001"
-                     (ngModelChange)="previsualiserParcelle()" required>
+                     (ngModelChange)="previsualiserParcelle()" required
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
             </div>
 
-            <div class="form-group">
-              <label>Longitude *</label>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2 text-sm">Longitude *</label>
               <input type="number" [(ngModel)]="nouvelleParcelle.longitude"
                      name="longitude" step="0.000001"
-                     (ngModelChange)="previsualiserParcelle()" required>
+                     (ngModelChange)="previsualiserParcelle()" required
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
             </div>
           </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label>Largeur (mètres) *</label>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2 text-sm">Largeur (mètres) *</label>
               <input type="number" [(ngModel)]="nouvelleParcelle.largeur"
                      name="largeur" min="10" step="10"
-                     (ngModelChange)="previsualiserParcelle()" required>
+                     (ngModelChange)="previsualiserParcelle()" required
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
             </div>
 
-            <div class="form-group">
-              <label>Hauteur (mètres) *</label>
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2 text-sm">Hauteur (mètres) *</label>
               <input type="number" [(ngModel)]="nouvelleParcelle.hauteur"
                      name="hauteur" min="10" step="10"
-                     (ngModelChange)="previsualiserParcelle()" required>
+                     (ngModelChange)="previsualiserParcelle()" required
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-base transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10">
             </div>
           </div>
 
-          <div class="form-info">
-            <p>💡 La parcelle sera créée comme un rectangle centré sur les coordonnées</p>
-            <p>📏 Surface estimée: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg my-5">
+            <p class="text-gray-600 text-sm leading-relaxed">💡 La parcelle sera créée comme un rectangle centré sur les coordonnées</p>
+            <p class="text-gray-600 text-sm leading-relaxed">📏 Surface estimée: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
           </div>
         </div>
 
         <!-- MODE 2: Copier-Coller Coordonnées -->
-        <div class="form-section" *ngIf="modeAjout === 'coordonnees'">
-          <h3>📋 Copier-Coller des coordonnées</h3>
+        <div class="py-5 border-b border-gray-200" *ngIf="modeAjout === 'coordonnees'">
+          <h3 class="text-gray-900 mb-5 text-base font-bold">📋 Copier-Coller des coordonnées</h3>
 
-          <div class="form-group">
-            <label>Collez vos coordonnées</label>
+          <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2 text-sm">Collez vos coordonnées</label>
             <textarea [(ngModel)]="coordonneesTexte" name="coordonnees"
-                      rows="6" placeholder="Formats acceptés:&#10;&#10;14.705,-17.455 14.705,-17.450 14.700,-17.450&#10;&#10;ou&#10;&#10;[[-17.455,14.705],[-17.450,14.705],[-17.450,14.700]]"></textarea>
+                      rows="6" placeholder="Formats acceptés:&#10;&#10;14.705,-17.455 14.705,-17.450 14.700,-17.450&#10;&#10;ou&#10;&#10;[[-17.455,14.705],[-17.450,14.705],[-17.450,14.700]]"
+                      class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg text-sm font-mono resize-y transition-all duration-300 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10"></textarea>
           </div>
 
-          <button type="button" class="btn btn-primary" (click)="traiterCoordonneesTexte()">
+          <button type="button" class="btn btn-primary mb-6" (click)="traiterCoordonneesTexte()">
             🔄 Charger les coordonnées
           </button>
 
-          <div class="form-info success" *ngIf="nouvelleParcelle.coordinates.length > 0">
-            <p>✅ Coordonnées chargées avec succès !</p>
-            <p>📏 Surface: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
+          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg my-5" *ngIf="nouvelleParcelle.coordinates.length > 0">
+            <p class="text-gray-600 text-sm leading-relaxed">✅ Coordonnées chargées avec succès !</p>
+            <p class="text-gray-600 text-sm leading-relaxed">📏 Surface: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
           </div>
 
-          <div class="form-info">
-            <p><strong>Formats acceptés :</strong></p>
-            <ul>
-              <li>Format simple : <code>lat1,lng1 lat2,lng2 lat3,lng3</code></li>
-              <li>Format JSON : <code>[[lng1,lat1],[lng2,lat2],...]</code></li>
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+            <p class="text-gray-600 text-sm leading-relaxed"><strong>Formats acceptés :</strong></p>
+            <ul class="my-2 ml-5 text-sm text-gray-500">
+              <li>Format simple : <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs text-gray-900">lat1,lng1 lat2,lng2 lat3,lng3</code></li>
+              <li>Format JSON : <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs text-gray-900">[[lng1,lat1],[lng2,lat2],...]</code></li>
             </ul>
           </div>
         </div>
 
         <!-- MODE 3: Dessin (Instructions) -->
-        <div class="form-section" *ngIf="modeAjout === 'dessin'">
-          <h3>✏️ Dessiner sur la carte</h3>
+        <div class="py-5" *ngIf="modeAjout === 'dessin'">
+          <h3 class="text-gray-900 mb-5 text-base font-bold">✏️ Dessiner sur la carte</h3>
 
-          <div class="form-info" *ngIf="!isDrawingMode">
-            <p>📝 <strong>Instructions :</strong></p>
-            <ol style="margin: 10px 0; padding-left: 20px;">
+          <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg my-5" *ngIf="!isDrawingMode">
+            <p class="text-gray-600 text-sm leading-relaxed">📝 <strong>Instructions :</strong></p>
+            <ol class="my-2 ml-5 text-sm text-gray-500">
               <li>Fermez ce formulaire</li>
               <li>Utilisez les outils de dessin sur la carte (en haut à gauche)</li>
               <li>Cliquez sur l'icône du polygone ou rectangle</li>
@@ -253,14 +265,14 @@
             </ol>
           </div>
 
-          <div class="form-info success" *ngIf="isDrawingMode && nouvelleParcelle.coordinates.length > 0">
-            <p>✅ Parcelle dessinée sur la carte !</p>
-            <p>📏 Surface: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
+          <div class="bg-green-50 border-l-4 border-green-500 p-4 rounded-lg my-5" *ngIf="isDrawingMode && nouvelleParcelle.coordinates.length > 0">
+            <p class="text-gray-600 text-sm leading-relaxed">✅ Parcelle dessinée sur la carte !</p>
+            <p class="text-gray-600 text-sm leading-relaxed">📏 Surface: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
           </div>
         </div>
 
         <!-- Actions du formulaire -->
-        <div class="form-actions">
+        <div class="flex gap-3 justify-end mt-8 pt-5 border-t border-gray-200">
           <button type="button" class="btn btn-secondary" (click)="fermerFormulaire()">
             Annuler
           </button>
