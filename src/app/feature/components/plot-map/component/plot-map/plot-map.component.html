@@ -1,0 +1,275 @@
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <h1>🌾 Gestion des Parcelles Agricoles</h1>
+    <div class="header-actions">
+      <button class="btn btn-primary" (click)="ouvrirFormulaire()">
+        ➕ Nouvelle Parcelle
+      </button>
+      <button class="btn btn-secondary" (click)="fileInput.click()">
+        📁 Importer
+      </button>
+      <button class="btn btn-secondary" (click)="exporterGeoJSON()">
+        💾 Exporter
+      </button>
+      <input #fileInput type="file" accept=".geojson,.json,.kml"
+             (change)="importerFichier($event)" style="display: none;">
+    </div>
+  </div>
+
+  <div class="main-content">
+    <!-- Carte -->
+    <div class="map-container">
+      <div id="map" class="map"></div>
+      <div class="map-info">
+        <p>✏️ Plusieurs méthodes d'ajout disponibles</p>
+        <p>📊 Total: {{parcelles.length}} parcelle(s)</p>
+      </div>
+    </div>
+
+    <!-- Panneau latéral -->
+    <div class="sidebar">
+      <!-- Liste des parcelles -->
+      <div class="parcelles-list" *ngIf="!selectedParcelle">
+        <h3>📋 Mes Parcelles</h3>
+        <div class="parcelle-card" *ngFor="let parcelle of parcelles"
+             (click)="selectedParcelle = parcelle"
+             [style.border-left-color]="getCouleurCulture(parcelle.culture)">
+          <h4>{{parcelle.nom}}</h4>
+          <div class="parcelle-info">
+            <span class="badge">{{parcelle.culture}}</span>
+            <span>{{parcelle.surface}} ha</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Détails de la parcelle -->
+      <div class="parcelle-details" *ngIf="selectedParcelle">
+        <button class="btn-back" (click)="selectedParcelle = null">← Retour</button>
+
+        <h2>{{selectedParcelle.nom}}</h2>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <label>Culture</label>
+            <span class="badge-large" [style.background-color]="getCouleurCulture(selectedParcelle.culture)">
+              {{selectedParcelle.culture}}
+            </span>
+          </div>
+          <div class="detail-item">
+            <label>Surface</label>
+            <span>{{selectedParcelle.surface}} ha</span>
+          </div>
+          <div class="detail-item">
+            <label>Date création</label>
+            <span>{{selectedParcelle.dateCreation | date:'dd/MM/yyyy'}}</span>
+          </div>
+        </div>
+
+        <div class="actions-section">
+          <h3>Actions rapides</h3>
+          <button class="btn btn-small btn-success" (click)="ajouterHistorique('observation')">
+            👁️ Observation
+          </button>
+          <button class="btn btn-small btn-warning" (click)="ajouterHistorique('incident')">
+            ⚠️ Incident
+          </button>
+          <button class="btn btn-small btn-info" (click)="ajouterHistorique('action')">
+            ✅ Action
+          </button>
+        </div>
+
+        <div class="historique-section">
+          <h3>📅 Historique</h3>
+          <div class="historique-item" *ngFor="let item of selectedParcelle.historique"
+               [class.incident]="item.type === 'incident'"
+               [class.action]="item.type === 'action'"
+               [class.observation]="item.type === 'observation'">
+            <div class="historique-header">
+              <span class="historique-type">{{item.type}}</span>
+              <span class="historique-date">{{item.date | date:'dd/MM/yyyy HH:mm'}}</span>
+            </div>
+            <p>{{item.description}}</p>
+          </div>
+        </div>
+
+        <button class="btn btn-danger" (click)="supprimerParcelle(selectedParcelle.id)">
+          🗑️ Supprimer la parcelle
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulaire Modal avec sélection de méthode -->
+  <div class="modal-overlay" *ngIf="showForm" (click)="fermerFormulaire()">
+    <div class="modal modal-large" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>➕ Nouvelle Parcelle</h2>
+        <button class="btn-close" (click)="fermerFormulaire()">✕</button>
+      </div>
+
+      <!-- Sélection de la méthode d'ajout -->
+      <div class="method-selector">
+        <h3>Choisissez une méthode d'ajout :</h3>
+        <div class="method-cards">
+          <div class="method-card"
+               [class.active]="modeAjout === 'manuel'"
+               (click)="changerModeAjout('manuel')">
+            <div class="method-icon">📍</div>
+            <div class="method-title">Position + Dimensions</div>
+            <div class="method-desc">Saisissez les coordonnées GPS et la taille (Recommandé)</div>
+          </div>
+
+          <div class="method-card"
+               [class.active]="modeAjout === 'coordonnees'"
+               (click)="changerModeAjout('coordonnees')">
+            <div class="method-icon">📋</div>
+            <div class="method-title">Copier-Coller</div>
+            <div class="method-desc">Collez des coordonnées existantes</div>
+          </div>
+
+          <div class="method-card"
+               [class.active]="modeAjout === 'dessin'"
+               (click)="changerModeAjout('dessin')">
+            <div class="method-icon">✏️</div>
+            <div class="method-title">Dessiner</div>
+            <div class="method-desc">Utilisez les outils de dessin sur la carte</div>
+          </div>
+        </div>
+      </div>
+
+      <form (ngSubmit)="ajouterParcelle()" class="form">
+        <!-- Informations de base (toujours visibles) -->
+        <div class="form-section">
+          <h3>Informations de la parcelle</h3>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Nom de la parcelle *</label>
+              <input type="text" [(ngModel)]="nouvelleParcelle.nom" name="nom"
+                     placeholder="Ex: Parcelle Nord" required>
+            </div>
+
+            <div class="form-group">
+              <label>Culture *</label>
+              <select [(ngModel)]="nouvelleParcelle.culture" name="culture" required>
+                <option value="">Sélectionner une culture</option>
+                <option *ngFor="let culture of cultures" [value]="culture">{{culture}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODE 1: Position + Dimensions (Manuel) -->
+        <div class="form-section" *ngIf="modeAjout === 'manuel'">
+          <h3>🎯 Définir la position et les dimensions</h3>
+
+          <div class="quick-actions">
+            <button type="button" class="btn btn-small btn-info" (click)="utiliserPositionActuelle()">
+              📍 Utiliser ma position GPS
+            </button>
+            <button type="button" class="btn btn-small btn-secondary" (click)="cliquerSurCarte()">
+              🗺️ Cliquer sur la carte
+            </button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Latitude *</label>
+              <input type="number" [(ngModel)]="nouvelleParcelle.latitude"
+                     name="latitude" step="0.000001"
+                     (ngModelChange)="previsualiserParcelle()" required>
+            </div>
+
+            <div class="form-group">
+              <label>Longitude *</label>
+              <input type="number" [(ngModel)]="nouvelleParcelle.longitude"
+                     name="longitude" step="0.000001"
+                     (ngModelChange)="previsualiserParcelle()" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Largeur (mètres) *</label>
+              <input type="number" [(ngModel)]="nouvelleParcelle.largeur"
+                     name="largeur" min="10" step="10"
+                     (ngModelChange)="previsualiserParcelle()" required>
+            </div>
+
+            <div class="form-group">
+              <label>Hauteur (mètres) *</label>
+              <input type="number" [(ngModel)]="nouvelleParcelle.hauteur"
+                     name="hauteur" min="10" step="10"
+                     (ngModelChange)="previsualiserParcelle()" required>
+            </div>
+          </div>
+
+          <div class="form-info">
+            <p>💡 La parcelle sera créée comme un rectangle centré sur les coordonnées</p>
+            <p>📏 Surface estimée: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
+          </div>
+        </div>
+
+        <!-- MODE 2: Copier-Coller Coordonnées -->
+        <div class="form-section" *ngIf="modeAjout === 'coordonnees'">
+          <h3>📋 Copier-Coller des coordonnées</h3>
+
+          <div class="form-group">
+            <label>Collez vos coordonnées</label>
+            <textarea [(ngModel)]="coordonneesTexte" name="coordonnees"
+                      rows="6" placeholder="Formats acceptés:&#10;&#10;14.705,-17.455 14.705,-17.450 14.700,-17.450&#10;&#10;ou&#10;&#10;[[-17.455,14.705],[-17.450,14.705],[-17.450,14.700]]"></textarea>
+          </div>
+
+          <button type="button" class="btn btn-primary" (click)="traiterCoordonneesTexte()">
+            🔄 Charger les coordonnées
+          </button>
+
+          <div class="form-info success" *ngIf="nouvelleParcelle.coordinates.length > 0">
+            <p>✅ Coordonnées chargées avec succès !</p>
+            <p>📏 Surface: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
+          </div>
+
+          <div class="form-info">
+            <p><strong>Formats acceptés :</strong></p>
+            <ul>
+              <li>Format simple : <code>lat1,lng1 lat2,lng2 lat3,lng3</code></li>
+              <li>Format JSON : <code>[[lng1,lat1],[lng2,lat2],...]</code></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- MODE 3: Dessin (Instructions) -->
+        <div class="form-section" *ngIf="modeAjout === 'dessin'">
+          <h3>✏️ Dessiner sur la carte</h3>
+
+          <div class="form-info" *ngIf="!isDrawingMode">
+            <p>📝 <strong>Instructions :</strong></p>
+            <ol style="margin: 10px 0; padding-left: 20px;">
+              <li>Fermez ce formulaire</li>
+              <li>Utilisez les outils de dessin sur la carte (en haut à gauche)</li>
+              <li>Cliquez sur l'icône du polygone ou rectangle</li>
+              <li>Dessinez votre parcelle en cliquant sur la carte</li>
+              <li>Le formulaire se rouvrira automatiquement</li>
+            </ol>
+          </div>
+
+          <div class="form-info success" *ngIf="isDrawingMode && nouvelleParcelle.coordinates.length > 0">
+            <p>✅ Parcelle dessinée sur la carte !</p>
+            <p>📏 Surface: <strong>{{nouvelleParcelle.surface.toFixed(2)}} ha</strong></p>
+          </div>
+        </div>
+
+        <!-- Actions du formulaire -->
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="fermerFormulaire()">
+            Annuler
+          </button>
+          <button type="submit" class="btn btn-primary"
+                  [disabled]="!nouvelleParcelle.nom || !nouvelleParcelle.culture || nouvelleParcelle.coordinates.length === 0">
+            💾 Enregistrer la parcelle
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

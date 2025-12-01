@@ -16,7 +16,7 @@ Chart.register(...registerables);
 export class DashboardComponent implements OnInit {
   @ViewChild('cropChart') cropChartRef!: ElementRef<HTMLCanvasElement>;
   @ViewChild('trendChart') trendChartRef!: ElementRef<HTMLCanvasElement>;
-  
+
   dashboardData: any;
   isLoading = true;
   cropChart: Chart | null = null;
@@ -28,18 +28,18 @@ export class DashboardComponent implements OnInit {
     this.loadDashboardData();
   }
 
-  ngAfterViewInit(): void {
-    if (this.dashboardData && !this.isLoading) {
-      this.createCharts();
-    }
-  }
+  // ngAfterViewInit(): void {
+  //   if (this.dashboardData && !this.isLoading) {
+  //     this.createCharts();
+  //   }
+  // }
 
   loadDashboardData(): void {
     this.dashboardService.getDashboardData().subscribe({
       next: (data) => {
         this.dashboardData = data;
         this.isLoading = false;
-        
+
         // Créer les graphiques après que les données soient chargées
         setTimeout(() => {
           this.createCharts();
@@ -66,7 +66,7 @@ export class DashboardComponent implements OnInit {
     if (!ctx) return;
 
     const cropData = this.dashboardData.kpi.cropDistribution;
-    
+
     this.cropChart = new Chart(ctx, {
       type: 'doughnut',
       data: {
@@ -224,7 +224,7 @@ export class DashboardComponent implements OnInit {
   }
 
   formatDate(dateString: string): string {
-    return new Date(dateString).toLocaleDateString('fr-FR', { 
+    return new Date(dateString).toLocaleDateString('fr-FR', {
       weekday: 'short',
       day: 'numeric',
       month: 'short'

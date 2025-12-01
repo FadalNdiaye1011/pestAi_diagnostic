@@ -28,7 +28,7 @@
               <div>
                 <p class="text-blue-100 dark:text-blue-200 text-sm font-medium">Analyses totales</p>
                 <p class="text-4xl font-bold mt-2">{{ dashboardData.kpi.totalDiagnostics }}</p>
-                <p class="text-blue-200 dark:text-blue-300 text-xs mt-1">+{{ getRandomGrowth() }}% ce mois</p>
+<!--                <p class="text-blue-200 dark:text-blue-300 text-xs mt-1">+{{ getRandomGrowth() }}% ce mois</p>-->
               </div>
               <div class="bg-white/20 dark:bg-white/10 p-4 rounded-2xl group-hover:bg-white/30 dark:group-hover:bg-white/20 transition-all">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +128,7 @@
                 Statistiques des traitements
               </h3>
               <div class="grid gap-4">
-                <div *ngFor="let treatment of dashboardData.kpi.treatmentStats" 
+                <div *ngFor="let treatment of dashboardData.kpi.treatmentStats"
                      class="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-2xl p-6 hover:shadow-lg transition-all duration-300">
                   <div class="flex items-center justify-between mb-4">
                     <div class="flex items-center">
@@ -192,7 +192,7 @@
               <div class="bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <h4 class="font-semibold mb-3">Prévisions 3 jours</h4>
                 <div class="space-y-2">
-                  <div *ngFor="let day of dashboardData.weather.forecast" 
+                  <div *ngFor="let day of dashboardData.weather.forecast"
                        class="flex items-center justify-between text-sm">
                     <span>{{ formatDate(day.date) }}</span>
                     <div class="flex items-center space-x-2">
@@ -216,7 +216,7 @@
                 </span>
               </div>
               <div class="space-y-4">
-                <div *ngFor="let alert of dashboardData.alerts" 
+                <div *ngFor="let alert of dashboardData.alerts"
                      class="group p-4 rounded-2xl border-l-4 transition-all duration-300 hover:shadow-lg"
                      [ngClass]="{
                        'border-red-500 bg-red-50 hover:bg-red-100 dark:bg-red-900/20 dark:hover:bg-red-900/30': alert.priority === 'CRITICAL',
@@ -230,7 +230,7 @@
                       'bg-yellow-100 text-yellow-600 dark:bg-yellow-800 dark:text-yellow-200': alert.priority === 'MEDIUM'
                     }">
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                               d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                       </svg>
                     </span>
@@ -251,7 +251,7 @@
                 Performance
               </h3>
               <div class="space-y-6">
-                <div *ngFor="let metric of dashboardData.stats.performanceMetrics" 
+                <div *ngFor="let metric of dashboardData.stats.performanceMetrics"
                      class="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-600 rounded-2xl p-4 hover:shadow-lg transition-all">
                   <div class="flex items-center justify-between">
                     <div class="flex-1">

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { AuthService } from '../../../../feature/auth/services/auth.service';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+// import { AuthService } from '../../../../feature/auth/services/auth.service'; // Commenté pour l'instant
+import { SidebarItem, sidebarData } from './sidebar-data';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,24 +8,34 @@ import { AuthService } from '../../../../feature/auth/services/auth.service';
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
-export class SidebarComponent {
-
+export class SidebarComponent implements OnInit {
   isExpanded = true;
   mobileMenuOpen = false;
-  isDiscMenuOpen = false; // État du sous-menu Test Mini disc
-  userRole: string | null = null;
-
+  // userRole: string | null = null; // Commenté pour l'instant
+  sidebarData: SidebarItem[] = sidebarData;
 
   @Output() sidebarToggled = new EventEmitter<boolean>();
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    // private authService: AuthService // Commenté pour l'instant
+  ) {}
 
   ngOnInit(): void {
-    // Réduire la sidebar automatiquement sur les écrans plus petits
     if (window.innerWidth < 1024) {
       this.isExpanded = false;
-    } 
+    }
+
+    // this.userRole = this.authService.getUserRole(); // Commenté pour l'instant
   }
+
+  // get filteredSidebarData(): SidebarItem[] {
+  //   return this.sidebarData.filter(item => this.hasAccess(item.roles));
+  // } // Commenté pour l'instant
+
+  // hasAccess(allowedRoles: string[]): boolean {
+  //   if (!this.userRole) return false;
+  //   return allowedRoles.includes(this.userRole);
+  // } // Commenté pour l'instant
 
   toggleSidebar(): void {
     this.isExpanded = !this.isExpanded;
@@ -33,25 +44,9 @@ export class SidebarComponent {
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
-    console.log('Mobile menu open:', this.mobileMenuOpen);
   }
 
   isDesktop(): boolean {
-    return window.innerWidth >= 1024; // Correspond à lg: en Tailwind
-  }
-
-   // Vérifie si l'élément doit être visible pour le rôle actuel
-   shouldShowItem(allowedRoles: string) {
-    const userRole = this.authService.getUserRole();
-    if(userRole === allowedRoles){
-      return true
-    }
-    return false 
-  }
-
-  toggleDiscMenu() {
-    this.isDiscMenuOpen = !this.isDiscMenuOpen;
+    return window.innerWidth >= 1024;
   }
 }
-
-

@@ -22,6 +22,16 @@ const routes: Routes = [
 
     ]
   },
+  {
+    path: '',
+    children: [
+      {
+        path: 'parcelles',
+        loadChildren: () => import('../components/plot-map/plot-map.module').then(m => m.PlotMapModule)
+      },
+
+    ]
+  },
 ];
 
 @NgModule({

@@ -1,268 +1,209 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-600 to-green-900 p-4 relative overflow-hidden">
-  <!-- Éléments décoratifs d'arrière-plan avec thème agricole -->
-  <div class="absolute inset-0 opacity-5">
-    <!-- Formes organiques inspirées de la nature -->
-    <div class="absolute top-10 right-10 w-96 h-96 bg-green-600 rounded-full transform rotate-12 -translate-y-1/4 translate-x-1/4"></div>
-    <div class="absolute bottom-10 left-10 w-80 h-80 bg-emerald-500 rounded-full transform -rotate-12 translate-y-1/4 -translate-x-1/4"></div>
-    
-    <!-- Motifs de feuilles subtils -->
-    <div class="absolute inset-0 grid grid-cols-12 grid-rows-12 opacity-3">
-      <div class="col-span-1 row-span-1 bg-green-700 rounded-full m-4 transform rotate-45"></div>
-      <div class="col-span-1 row-span-1 bg-emerald-600 rounded-full m-4 col-start-5 transform -rotate-12"></div>
-      <div class="col-span-1 row-span-1 bg-green-800 rounded-full m-4 col-start-9 transform rotate-30"></div>
-      <div class="col-span-1 row-span-1 bg-emerald-700 rounded-full m-4 row-start-4 transform -rotate-45"></div>
-      <div class="col-span-1 row-span-1 bg-green-600 rounded-full m-4 col-start-7 row-start-4"></div>
-      <div class="col-span-1 row-span-1 bg-emerald-800 rounded-full m-4 col-start-11 row-start-4 transform rotate-12"></div>
+<div class="min-h-screen flex bg-gray-50">
+  <!-- Section Gauche - Image et Branding -->
+  <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-green-400 via-green-500 to-emerald-600 relative overflow-hidden">
+    <!-- Overlay décoratif -->
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute inset-0" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'0.4\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+    </div>
+
+    <div class="relative z-10 flex flex-col items-center justify-center w-full p-12">
+      <!-- Logo -->
+      <div class="bg-white rounded-3xl p-8 shadow-2xl mb-8 transform hover:scale-105 transition-transform duration-300">
+        <img src="assets/images/Logo.png" alt="PEST AI Logo" class="w-32 h-32 object-contain" />
+      </div>
+
+      <!-- Titre et Description -->
+      <h1 class="text-5xl font-bold text-white mb-4 text-center">PEST AI</h1>
+      <p class="text-white/90 text-xl text-center mb-12 max-w-md leading-relaxed">
+        Détection intelligente des maladies et ravageurs par IA
+      </p>
+
+      <!-- Icônes de Fonctionnalités -->
+      <div class="grid grid-cols-3 gap-8 w-full max-w-lg">
+        <div class="flex flex-col items-center text-center">
+          <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-4 shadow-lg">
+            <i class="fa fa-video-camera text-white text-3xl"></i>
+          </div>
+          <p class="text-white font-medium text-sm">Surveillance<br>en temps réel</p>
+        </div>
+        <div class="flex flex-col items-center text-center">
+          <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-4 shadow-lg">
+            <i class="fa fa-eye text-white text-3xl"></i>
+          </div>
+          <p class="text-white font-medium text-sm">Détection<br>précoce</p>
+        </div>
+        <div class="flex flex-col items-center text-center">
+          <div class="bg-white/20 backdrop-blur-sm rounded-2xl p-6 mb-4 shadow-lg">
+            <i class="fa fa-shield text-white text-3xl"></i>
+          </div>
+          <p class="text-white font-medium text-sm">Protection<br>optimale</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Conteneur Principal avec design moderne sombre -->
-  <div class="w-full max-w-6xl mx-auto bg-green-800 rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row transform transition-all duration-500 relative z-10 hover:shadow-[0_40px_80px_-20px_rgba(34,197,94,0.2)] border border-gray-700">
-    
-    <!-- Section Image avec overlay stylisé -->
-    <div class="lg:w-1/2 relative hidden lg:block overflow-hidden bg-gradient-to-br from-green-700 to-emerald-800">
-      <!-- Background avec motifs organiques -->
-      <div class="absolute inset-0 opacity-15">
-        <div class="w-full h-full bg-gray-900"></div>
-        <!-- Motifs décoratifs inspirés de la nature -->
-        <div class="absolute top-0 left-0 w-40 h-40 border-t-4 border-l-4 border-white/20 rounded-tl-3xl"></div>
-        <div class="absolute bottom-0 right-0 w-40 h-40 border-b-4 border-r-4 border-white/20 rounded-br-3xl"></div>
-        <div class="absolute top-1/2 left-1/2 w-80 h-80 border-4 border-yellow-400/20 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-        
-        <!-- Éléments de feuillage stylisés -->
-        <div class="absolute top-20 right-20 w-16 h-16 bg-yellow-400/15 rounded-full"></div>
-        <div class="absolute bottom-32 left-16 w-12 h-12 bg-white/15 rounded-full"></div>
-        <div class="absolute top-1/3 left-1/4 w-8 h-8 bg-emerald-300/20 rounded-full"></div>
+  <!-- Section Droite - Formulaire de Connexion -->
+  <div class="w-full lg:w-1/2 flex items-center justify-center p-8">
+    <div class="w-full max-w-md">
+      <!-- Sélecteur de Langue -->
+      <div class="flex justify-end mb-8">
+        <button class="flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors">
+          <i class="fa fa-language text-gray-600"></i>
+          <span class="text-gray-700 font-medium">Français</span>
+        </button>
       </div>
 
-      <div class="h-full flex flex-col items-center justify-center p-12 relative z-10">
-        <!-- Logo avec effet de flottement -->
-        <div class="mb-12 transform hover:scale-105 transition-transform duration-300">
-          <div class="w-48 h-48 bg-white rounded-full flex items-center justify-center backdrop-blur-sm border border-white/10 shadow-2xl">
-            <img src="assets/images/Logo.png" alt="PEST AI Logo" class="w-50 h-50 object-contain animate-float filter drop-shadow-lg" />
-          </div>
-        </div>
-        
-        <h3 class="text-4xl font-bold text-white mb-6 text-center tracking-tight">Bienvenue sur PEST AI</h3>
-        <p class="text-white/80 text-center mb-12 max-w-md text-lg leading-relaxed">
-          Connectez-vous pour analyser vos cultures et détecter les anomalies sur vos arbres grâce à l'intelligence artificielle.
-        </p>
-
-        <!-- Cartes de fonctionnalités -->
-        <div class="w-full max-w-md space-y-6">
-          <div class="p-6 rounded-2xl backdrop-blur-sm bg-green-800/40 border border-white/10 shadow-lg transform hover:scale-105 transition-all duration-300">
-            <div class="flex items-center mb-4">
-              <div class="bg-yellow-400 w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                <i class="fa fa-camera text-green-800 text-xl"></i>
-              </div>
-              <div>
-                <h4 class="text-white font-semibold text-lg">Analyse par Photo</h4>
-                <p class="text-white/70 text-sm">Photographiez vos arbres</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="p-6 rounded-2xl backdrop-blur-sm bg-green-800/40 border border-white/10 shadow-lg transform hover:scale-105 transition-all duration-300">
-            <div class="flex items-center mb-4">
-              <div class="bg-yellow-400 w-12 h-12 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                <i class="fa fa-leaf text-green-800 text-xl"></i>
-              </div>
-              <div>
-                <h4 class="text-white font-semibold text-lg">Détection IA</h4>
-                <p class="text-white/70 text-sm">Identification automatique</p>
-              </div>
-            </div>
-          </div>
+      <!-- Logo Mobile -->
+      <div class="flex justify-center mb-8 lg:hidden">
+        <div class="bg-gradient-to-br from-green-400 to-emerald-600 rounded-2xl p-6 shadow-lg">
+          <img src="assets/images/Logo.png" alt="PEST AI Logo" class="w-16 h-16 object-contain" />
         </div>
       </div>
-    </div>
 
-    <!-- Section Formulaire avec design moderne sombre -->
-    <div class="lg:w-1/2 p-8 sm:p-12 relative bg-gradient-to-br from-gray-600 to-gray-700">
-      <!-- Éléments décoratifs -->
-      <div class="absolute top-0 right-0 w-72 h-72 -mt-20 -mr-20">
-        <div class="w-full h-full bg-gradient-to-br from-green-600/5 to-emerald-600/5 rounded-full"></div>
-      </div>
-      <div class="absolute bottom-0 left-0 w-64 h-64 -mb-20 -ml-20">
-        <div class="w-full h-full bg-gradient-to-tr from-yellow-400/5 to-green-600/5 rounded-full"></div>
+      <!-- Titre -->
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-gray-900 mb-2">Bienvenue</h2>
+        <p class="text-gray-600">Connectez-vous pour accéder à votre tableau de bord</p>
       </div>
 
-      <div class="text-center mb-12 relative z-10">
-        <!-- Logo mobile -->
-        <div class="flex justify-center mb-8 lg:hidden">
-          <div class="w-20 h-20 bg-gradient-to-br from-green-600 to-emerald-700 rounded-full flex items-center justify-center shadow-lg">
-            <img src="assets/images/Logo.png" alt="PEST AI Logo" class="w-12 h-12 object-contain" />
-          </div>
-        </div>
-        <h2 class="text-4xl font-bold text-white mb-3">Connexion</h2>
-        <p class="text-gray-300 text-lg">Accédez à votre espace agriculteur</p>
-      </div>
-
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="relative z-10">
-        <div class="space-y-8">
-          <!-- Champ téléphone avec design moderne sombre -->
-          <div class="group">
-            <label for="telephone" class="flex items-center text-gray-200 font-semibold mb-3 text-sm tracking-wide">
-              <i class="fa fa-phone mr-2 text-green-400"></i>
-              Numéro de téléphone 
-              <span class="text-yellow-400 ml-2 text-lg">★</span>
+      <!-- Formulaire -->
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="space-y-5">
+          <!-- Champ Email/Téléphone -->
+          <div>
+            <label for="telephone" class="block text-sm font-medium text-gray-700 mb-2">
+              Email
             </label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                <i class="fa fa-phone text-green-400 text-lg"></i>
-              </div>
-              <input type="text" formControlName="telephone" id="telephone"
-                class="pl-14 pr-5 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
-                placeholder="Entrez votre numéro de téléphone">
-              <div class="absolute inset-y-0 right-0 pr-5 flex items-center">
-                <div class="w-2 h-2 rounded-full bg-green-400 opacity-0 group-focus-within:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </div>
+            <input
+              type="text"
+              formControlName="telephone"
+              id="telephone"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all"
+              placeholder="votre@email.com">
             <div *ngIf="loginForm.get('telephone')?.invalid && loginForm.get('telephone')?.touched"
-              class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
-              <i class="fa fa-exclamation-triangle mr-2"></i>
-              Veuillez entrer un numéro de téléphone valide.
+                 class="text-red-500 text-sm mt-1 flex items-center">
+              <i class="fa fa-exclamation-circle mr-1"></i>
+              Veuillez entrer un email valide.
             </div>
           </div>
 
-          <!-- Champ Mot de Passe avec design moderne sombre -->
-          <div class="group">
-            <label for="password" class="flex items-center text-gray-200 font-semibold mb-3 text-sm tracking-wide">
-              <i class="fa fa-lock mr-2 text-green-400"></i>
-              Mot de passe 
-              <span class="text-yellow-400 ml-2 text-lg">★</span>
+          <!-- Champ Mot de Passe -->
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+              Mot de passe
             </label>
             <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-                <i class="fa fa-lock text-green-400 text-lg"></i>
-              </div>
-              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password"
-                class="pl-14 pr-14 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 backdrop-blur-sm shadow-sm text-lg placeholder-gray-400 text-white"
-                placeholder="Entrez votre mot de passe">
-              <button type="button" (click)="togglePasswordVisibility()"
-                class="absolute inset-y-0 right-0 flex items-center pr-5 text-green-400 hover:text-green-300 transition-all duration-300 transform hover:scale-110">
-                <i class="fa text-lg" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                formControlName="password"
+                id="password"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all pr-12"
+                placeholder="••••••••">
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700">
+                <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
               </button>
             </div>
             <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
-              class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
-              <i class="fa fa-exclamation-triangle mr-2"></i>
+                 class="text-red-500 text-sm mt-1 flex items-center">
+              <i class="fa fa-exclamation-circle mr-1"></i>
               Le mot de passe doit comporter au moins 6 caractères.
             </div>
           </div>
 
-          <!-- Options avec design amélioré sombre -->
-          <div class="flex items-center justify-between mt-6">
+          <!-- Options -->
+          <div class="flex items-center justify-between">
             <div class="flex items-center">
-              <!-- <div class="relative">
-                <input type="checkbox" id="remember" 
-                  class="w-6 h-6 opacity-0 absolute z-10 cursor-pointer peer">
-                <div class="w-6 h-6 border-2 border-gray-500 rounded-lg bg-gray-700 absolute top-0 left-0 transition-all duration-300 peer-checked:bg-green-500 peer-checked:border-green-500 shadow-sm"></div>
-                <i class="fa fa-check absolute text-sm text-white top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity duration-200"></i>
-              </div> -->
-              <!-- <label for="remember" class="ml-3 text-gray-300 select-none cursor-pointer font-medium">Se souvenir de moi</label> -->
+              <input
+                type="checkbox"
+                id="remember"
+                class="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500">
+              <label for="remember" class="ml-2 text-sm text-gray-700">
+                Se souvenir de moi
+              </label>
             </div>
-            <a (click)="openForgotPasswordModal()" 
-              class="text-green-400 hover:text-green-300 transition duration-300 font-semibold cursor-pointer border-b-2 border-transparent hover:border-green-400">
+            <a
+              (click)="openForgotPasswordModal()"
+              class="text-sm text-green-600 hover:text-green-700 font-medium cursor-pointer">
               Mot de passe oublié?
             </a>
           </div>
 
-          <!-- Bouton de Connexion avec design premium sombre -->
-          <div class="pt-8">
-            <button type="submit" [disabled]="loginForm.invalid || isLoading"
-              class="group w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-5 px-8 rounded-2xl shadow-xl transition-all duration-300 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] hover:shadow-[0_20px_40px_-10px_rgba(34,197,94,0.4)]">
-              
-              <!-- Effet de brillance -->
-              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-              
-              <!-- Contenu normal du bouton -->
-              <span *ngIf="!isLoading" class="relative z-10 flex items-center justify-center text-lg">
-                <i class="fa fa-sign-in mr-3 group-hover:mr-4 transition-all duration-300"></i>
-                Se connecter
-                <i class="fa fa-arrow-right ml-3 group-hover:ml-4 transition-all duration-300 transform group-hover:translate-x-1"></i>
-              </span>
-              
-              <!-- Loader -->
-              <span *ngIf="isLoading" class="flex items-center justify-center text-lg">
-                <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Connexion en cours...
-              </span>
-            </button>
-          </div>
+          <!-- Bouton de Connexion -->
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading"
+            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl">
+            <span *ngIf="!isLoading" class="flex items-center justify-center">
+              Se connecter
+            </span>
+            <span *ngIf="isLoading" class="flex items-center justify-center">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Connexion en cours...
+            </span>
+          </button>
 
-          <!-- Séparateur avec design agricole sombre -->
-          <div class="flex items-center my-8">
-            <div class="flex-grow h-px bg-gradient-to-r from-transparent to-gray-600"></div>
-            <div class="mx-6 flex items-center">
-              <i class="fa fa-leaf text-green-500 text-lg"></i>
-            </div>
-            <div class="flex-grow h-px bg-gradient-to-l from-transparent to-gray-600"></div>
+          <!-- Lien d'inscription -->
+          <div class="text-center mt-6">
+            <p class="text-sm text-gray-600">
+              Pas encore de compte?
+              <a routerLink="/auth/register" class="text-green-600 hover:text-green-700 font-medium">
+                Contactez votre coopérative
+              </a>
+            </p>
           </div>
-
-          <!-- Lien d'inscription ajouté ici -->
-          <div class="text-center">
-            <p class="text-gray-300 mb-4">Vous n'avez pas de compte?</p>
-            <a routerLink="/auth/register" class="inline-block bg-transparent border-2 border-green-500 text-green-400 hover:bg-green-500/10 hover:text-green-300 font-bold py-3 px-8 rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-[1.02]">
-              <i class="fa fa-user-plus mr-2"></i>S'inscrire
-            </a>
-          </div>
-
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Modal Mot de Passe Oublié avec design moderne sombre -->
-  <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black/80 backdrop-blur-sm z-50">
-    <div class="bg-green-800 rounded-3xl shadow-2xl w-11/12 md:w-[480px] p-8 relative transform transition-all duration-300 animate-modal-entry border border-gray-600">
-      <button (click)="closeForgotPasswordModal()" class="absolute top-6 right-6 text-gray-400 hover:text-gray-200 transition-colors transform hover:scale-110 w-8 h-8 rounded-full hover:bg-gray-700 flex items-center justify-center">
-        <i class="fa fa-times text-lg"></i>
+  <!-- Modal Mot de Passe Oublié -->
+  <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-50 p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative animate-modal">
+      <button
+        (click)="closeForgotPasswordModal()"
+        class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+        <i class="fa fa-times text-xl"></i>
       </button>
-      
-      <div class="flex justify-center mb-8">
-        <div class="bg-gradient-to-br from-gray-700 to-gray-600 rounded-full p-4 border-2 border-gray-600">
-          <div class="bg-gradient-to-br from-green-600 to-emerald-700 rounded-full p-3">
-            <i class="fa fa-key text-white text-2xl"></i>
-          </div>
+
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+          <i class="fa fa-key text-green-600 text-2xl"></i>
         </div>
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Mot de passe oublié?</h2>
+        <p class="text-gray-600">Entrez votre email pour recevoir un lien de réinitialisation</p>
       </div>
-      
-      <h2 class="text-3xl font-bold text-white text-center mb-3">Mot de passe oublié?</h2>
-      <p class="text-gray-300 text-center mb-8 text-lg leading-relaxed">Entrez votre numéro de téléphone pour recevoir un lien de réinitialisation</p>
 
       <form [formGroup]="sendMailUser" (ngSubmit)="sendMail()">
-        <div class="mb-8">
-          <div class="relative">
-            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
-              <i class="fa fa-phone text-green-400 text-lg"></i>
-            </div>
-            <input type="text" id="telephone" formControlName="telephone" name="telephone" required
-              class="pl-14 pr-5 py-5 w-full border-2 border-gray-600 rounded-2xl focus:outline-none focus:ring-4 focus:ring-green-500/30 focus:border-green-500 transition-all duration-300 bg-gray-700/80 text-lg placeholder-gray-400 text-white"
-              placeholder="Entrez votre numéro de téléphone">
-          </div>
+        <div class="mb-6">
+          <label for="modal-telephone" class="block text-sm font-medium text-gray-700 mb-2">
+            Email
+          </label>
+          <input
+            type="text"
+            id="modal-telephone"
+            formControlName="telephone"
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+            placeholder="votre@email.com">
           <div *ngIf="sendMailUser.get('telephone')?.invalid && sendMailUser.get('telephone')?.touched"
-            class="text-red-400 text-sm mt-3 pl-4 flex items-center animate-fadeIn bg-red-900/20 p-3 rounded-lg border border-red-800/50">
-            <i class="fa fa-exclamation-triangle mr-2"></i>
-            Veuillez entrer un numéro de téléphone valide.
+               class="text-red-500 text-sm mt-1 flex items-center">
+            <i class="fa fa-exclamation-circle mr-1"></i>
+            Veuillez entrer un email valide.
           </div>
         </div>
 
-        <button type="submit" [disabled]="sendMailUser.invalid || isLoading"
-          class="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-500 hover:to-emerald-500 text-white font-bold py-5 px-6 rounded-2xl shadow-lg transition-all duration-300 relative overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] mb-6">
-          
-          <!-- Contenu normal du bouton -->
-          <span *ngIf="!isLoading" class="relative z-10 flex items-center justify-center text-lg">
-            <i class="fa fa-paper-plane mr-3"></i>
-            Envoyer le lien
-          </span>
-          
-          <!-- Loader -->
-          <span *ngIf="isLoading" class="flex items-center justify-center text-lg">
-            <svg class="animate-spin -ml-1 mr-3 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <button
+          type="submit"
+          [disabled]="sendMailUser.invalid || isLoading"
+          class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed mb-4">
+          <span *ngIf="!isLoading">Envoyer le lien</span>
+          <span *ngIf="isLoading" class="flex items-center justify-center">
+            <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
@@ -270,96 +211,40 @@
           </span>
         </button>
 
-        <div class="text-center">
-          <button type="button" (click)="closeForgotPasswordModal()" 
-            class="text-green-400 hover:text-green-300 font-semibold transition-all duration-300 border-b-2 border-transparent hover:border-green-400 p-2">
-            <i class="fa fa-arrow-left mr-2"></i>
-            Retour à la connexion
-          </button>
-        </div>
+        <button
+          type="button"
+          (click)="closeForgotPasswordModal()"
+          class="w-full text-gray-600 hover:text-gray-900 font-medium py-2 transition-colors">
+          <i class="fa fa-arrow-left mr-2"></i>
+          Retour à la connexion
+        </button>
       </form>
     </div>
   </div>
 </div>
 
-<!-- Styles CSS personnalisés -->
 <style>
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-15px) rotate(2deg); }
-  }
-  
-  .animate-float {
-    animation: float 8s ease-in-out infinite;
-  }
-  
-  @keyframes fadeIn {
-    from { 
-      opacity: 0; 
-      transform: translateY(-20px) scale(0.95); 
-    }
-    to { 
-      opacity: 1; 
-      transform: translateY(0) scale(1); 
-    }
-  }
-  
-  .animate-fadeIn {
-    animation: fadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  }
-  
-  @keyframes modal-entry {
-    from { 
-      opacity: 0; 
-      transform: scale(0.8) translateY(30px); 
-    }
-    to { 
-      opacity: 1; 
-      transform: scale(1) translateY(0); 
-    }
-  }
-  
-  .animate-modal-entry {
-    animation: modal-entry 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  }
-  
-  /* Style personnalisé pour les inputs */
-  input:focus {
-    transform: translateY(-1px);
-  }
-  
-  /* Animation de rotation du spinner */
   @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
   }
-  
+
   .animate-spin {
     animation: spin 1s linear infinite;
   }
-  
-  /* Effet de hover pour les boutons */
-  .group:hover .group-hover\:translate-x-1 {
-    transform: translateX(4px);
+
+  @keyframes modal {
+    from {
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
   }
-  
-  /* Styles pour les gradients personnalisés */
-  .bg-gradient-to-br {
-    background-image: linear-gradient(to bottom right, var(--tw-gradient-stops));
-  }
-  
-  /* Style pour les éléments de focus */
-  .peer:checked ~ .peer-checked\:bg-green-500 {
-    background-color: rgb(34 197 94);
-    border-color: rgb(34 197 94);
-  }
-  
-  .peer:checked ~ .peer-checked\:opacity-100 {
-    opacity: 1;
-  }
-  
-  /* Effet de glow subtil pour le thème sombre */
-  .shadow-2xl {
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+
+  .animate-modal {
+    animation: modal 0.3s ease-out forwards;
   }
 </style>
